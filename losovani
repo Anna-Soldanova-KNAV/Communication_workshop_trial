@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<title>Losování scénářů</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  button { font-size: 1.2em; padding: 10px 20px; }
+  #scenario { margin-top: 20px; font-size: 1.1em; }
+</style>
+</head>
+<body>
+  <h1>Losování scénářů pro workshop</h1>
+  <button onclick="drawScenario()">Losuj scénář</button>
+  <div id="scenario"></div>
+
+<script>
+  const scenarios = [
+    "Jste naštvaný vědec, který potřebuje rychlou pomoc s daty.",
+    "Vědec nerozumí novým pravidlům a je frustrovaný.",
+    "Vědec se cítí přetížen a nechce spolupracovat.",
+    "Vědec si stěžuje na nejasnou komunikaci.",
+    "Vědec je skeptický a odmítá změny.",
+    "Vědec žádá o vysvětlení, proč musí opakovat práci."
+  ];
+
+  function drawScenario() {
+    const idx = Math.floor(Math.random() * scenarios.length);
+    document.getElementById('scenario').textContent = scenarios[idx];
+  }
+</script>
+</body>
+</html>
