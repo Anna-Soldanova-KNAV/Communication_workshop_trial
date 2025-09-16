@@ -1,32 +1,115 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Losování scénářů</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenario Draw</title>
 <style>
-  body { font-family: sans-serif; padding: 20px; }
-  button { font-size: 1.2em; padding: 10px 20px; }
-  #scenario { margin-top: 20px; font-size: 1.1em; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #008691, #F36085);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .container {
+    background: #ffffffdd;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    color: #333;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    color: #008691;
+    font-size: 1.6rem;
+  }
+
+  button {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    background-color: #008691;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #F36085;
+    transform: scale(1.05);
+  }
+
+  #scenario {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1.2rem;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #00869122, #F3608522);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.3rem;
+    }
+    button {
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+    }
+    #scenario {
+      font-size: 1rem;
+      padding: 1rem;
+      min-height: 60px;
+    }
+  }
 </style>
 </head>
 <body>
-  <h1>Losování scénářů pro workshop</h1>
-  <button onclick="drawScenario()">Losuj scénář</button>
-  <div id="scenario"></div>
+  <div class="container">
+    <h1>Scenario Draw for Workshop</h1>
+    <button onclick="drawScenario()">🎲 Draw a scenario</button>
+    <div id="scenario">Click the button to draw a scenario</div>
+  </div>
 
 <script>
-  const scenarios = [
-    "Jste naštvaný vědec, který potřebuje rychlou pomoc s daty.",
-    "Vědec nerozumí novým pravidlům a je frustrovaný.",
-    "Vědec se cítí přetížen a nechce spolupracovat.",
-    "Vědec si stěžuje na nejasnou komunikaci.",
-    "Vědec je skeptický a odmítá změny.",
-    "Vědec žádá o vysvětlení, proč musí opakovat práci."
+  const allScenarios = [
+    "You are an upset researcher who needs urgent help with data.",
+    "The researcher does not understand new rules and feels frustrated.",
+    "The researcher is overwhelmed and does not want to cooperate.",
+    "The researcher complains about unclear communication.",
+    "The researcher is skeptical and resists changes.",
+    "The researcher asks why they need to repeat their work."
   ];
 
+  let remainingScenarios = [...allScenarios];
+
   function drawScenario() {
-    const idx = Math.floor(Math.random() * scenarios.length);
-    document.getElementById('scenario').textContent = scenarios[idx];
+    if (remainingScenarios.length === 0) {
+      // reset once all scenarios were used
+      remainingScenarios = [...allScenarios];
+      alert("All scenarios have been drawn. Starting over!");
+    }
+
+    const idx = Math.floor(Math.random() * remainingScenarios.length);
+    const scenario = remainingScenarios.splice(idx, 1)[0]; 
+    document.getElementById('scenario').textContent = scenario;
   }
 </script>
 </body>
