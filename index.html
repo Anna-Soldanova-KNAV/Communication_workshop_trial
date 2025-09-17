@@ -7,7 +7,7 @@
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #008691, #F36085);
+    background: #008691;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -42,12 +42,12 @@
     background-color: #008691;
     color: #fff;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
   }
 
   button:hover {
     background-color: #F36085;
-    transform: scale(1.05);
+    /* odstraněno scale */
   }
 
   #scenario {
@@ -102,9 +102,8 @@
 
   function drawScenario() {
     if (remainingScenarios.length === 0) {
-      // reset once all scenarios were used
+      // reset potichu
       remainingScenarios = [...allScenarios];
-      alert("All scenarios have been drawn. Starting over!");
     }
 
     const idx = Math.floor(Math.random() * remainingScenarios.length);
