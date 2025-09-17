@@ -47,22 +47,25 @@
 
   button:hover {
     background-color: #F36085;
-    /* odstraněno scale */
   }
 
   #scenario {
     margin-top: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: normal;
     padding: 1.2rem;
     border-radius: 15px;
     background: linear-gradient(135deg, #00869122, #F3608522);
-    min-height: 80px;
+    min-height: 120px;   /* stabilní výška */
+    max-height: 120px;   /* zamezí skákání */
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
+    align-items: flex-start; /* zarovnání doleva */
+    text-align: left;
+    overflow: hidden;
   }
+
 
   /* Mobile adjustments */
   @media (max-width: 480px) {
@@ -76,7 +79,8 @@
     #scenario {
       font-size: 1rem;
       padding: 1rem;
-      min-height: 60px;
+      min-height: 100px;
+      max-height: 100px;
     }
   }
 </style>
@@ -90,25 +94,34 @@
 
 <script>
   const allScenarios = [
-    "You are a researcher at a lecture on Electronic Information Sources. During the Open Access section, you openly state that with Sci-Hub, OA is not really necessary.",
-    "You are a researcher who stops your data steward in the hallway. You ask whether it’s fine to submit an empty Data Management Plan (DMP), because “nobody checks it anyway.”",
-    "You are a researcher attending a training on Data Management Plans. You feel frustrated by the administrative burden and complain that you would rather do experiments, since you don’t see the value of a DMP.",
-    "You are a researcher in a project group meeting about new Open Science policies. You express your concern that making data openly available will lead to it being stolen.",
-    "You are a researcher at a conference session on Open Science funding. You feel frustrated and argue that the requirements take too much of your budget unnecessarily.",
-    "You are a researcher at a conference on Open Science. During a coffee break, you approach a data steward to ask who actually pays for Open Science."
+    ["You are a researcher at a lecture on Electronic Information Sources.", 
+     "During the Open Access section, you openly state that with Sci-Hub, OA is not really necessary."],
+    ["You are a researcher who stops your data steward in the hallway.", 
+     "You ask whether it’s fine to submit an empty Data Management Plan (DMP), because 'nobody checks it anyway.'"],
+    ["You are a researcher attending a training on Data Management Plans.", 
+     "You feel frustrated by the administrative burden and complain that you would rather do experiments, since you don’t see the value of a DMP."],
+    ["You are a researcher in a project group meeting about new Open Science policies.", 
+     "You express your concern that making data openly available will lead to it being stolen."],
+    ["You are a researcher at a conference session on Open Science funding.", 
+     "You feel frustrated and argue that the requirements take too much of your budget unnecessarily."],
+    ["You are a researcher at a conference on Open Science.", 
+     "During a coffee break, you approach a data steward to ask who actually pays for Open Science."]
   ];
 
   let remainingScenarios = [...allScenarios];
 
   function drawScenario() {
     if (remainingScenarios.length === 0) {
-      // reset potichu
       remainingScenarios = [...allScenarios];
     }
 
     const idx = Math.floor(Math.random() * remainingScenarios.length);
-    const scenario = remainingScenarios.splice(idx, 1)[0]; 
-    document.getElementById('scenario').textContent = scenario;
+    const [setting, action] = remainingScenarios.splice(idx, 1)[0]; 
+
+    document.getElementById('scenario').innerHTML = `
+      <div>${setting}</div>
+      <div>${action}</div>
+    `;
   }
 </script>
 </body>
